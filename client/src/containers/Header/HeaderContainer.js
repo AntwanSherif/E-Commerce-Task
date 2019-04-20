@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { Grid, Menu, Icon, Header, Image, Container } from 'semantic-ui-react';
 import { logoutUserAction } from '../../redux/actions/userActions';
-import CartContainer from './CartContainer';
+import CartIconContainer from './CartIconContainer';
 import AllUsersOrdersContainer from './AllUsersOrdersContainer';
 
 @withRouter
@@ -90,7 +90,7 @@ export default class HeaderContainer extends Component {
 
 							{isAuthenticated && !isAdmin && (
 								<Menu.Item position="right">
-                            		<CartContainer />
+                            		<CartIconContainer />
 								</Menu.Item>
 							)}
 							

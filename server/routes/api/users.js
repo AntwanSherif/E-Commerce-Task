@@ -37,7 +37,7 @@ router.post('/register', (req, res) => {
                             const token = jwt.sign(
                                 payload, 
                                 secretOrKey, 
-                                { expiresIn: "12h" }
+                                { expiresIn: "7d" }
                             );
                             
                             res.json({
@@ -81,7 +81,7 @@ router.post('/login', (req, res) => {
                     const token = jwt.sign(
                         payload, 
                         secretOrKey, 
-                        { expiresIn: "12h" }
+                        { expiresIn: "7d" }
                     );
                     
                     res.json({

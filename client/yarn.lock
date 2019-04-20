@@ -8424,6 +8424,13 @@ react-scripts@2.1.8:
   optionalDependencies:
     fsevents "1.2.4"
 
+react-semantic-toasts@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/react-semantic-toasts/-/react-semantic-toasts-0.5.1.tgz#f8f51ab9faf5ca70ff73b8f350a3c41c8c500c33"
+  integrity sha512-IsaZXDP0Oupgec0JwNjNA/zTSCibPWqhOxW2Kc/Cw7HJDlEtCdewIb9nGnRHrAqkD6wpQ6eVTRv7OT45pthI+w==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-side-effect@^1.0.2:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.1.5.tgz#f26059e50ed9c626d91d661b9f3c8bb38cd0ff2d"

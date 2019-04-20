@@ -10,7 +10,7 @@ const options = {
 };
 
 module.exports = passport => {
-    passport.use(new JwtStrategy(options,  (payload, done) => {
+    passport.use(new JwtStrategy(options, (payload, done) => {
         User.findOne({ username: payload.username })
             .then(user => {
                 if(user) {

@@ -22,7 +22,13 @@ export default {
         errors: null
     },
     orders: {
-        cart: [],
-        allUsersOrders: []
+        cart: {},
+        totalPrice: 0,
+        isPlacingOrder: false,
+
+        isFetchingUsersOrders: false,
+        allUsersOrders: [],
+
+        errors: null
     }
 }

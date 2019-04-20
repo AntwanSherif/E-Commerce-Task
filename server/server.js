@@ -30,16 +30,6 @@ mongoose
 
 app.use('/uploads', express.static('uploads'));
 
-//Configure images uploads
-// app.use(
-//     multer({ 
-//         dest: './uploads/',
-//         rename: (fieldname, filename) => filename
-//     })
-//     .single('photo')
-// );
-
-
 
 //Use passport middleware
 app.use(passport.initialize());

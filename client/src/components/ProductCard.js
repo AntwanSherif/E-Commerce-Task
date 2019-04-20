@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, Icon, Button, Image } from 'semantic-ui-react';
-import { AddProductToCartAction } from '../redux/actions/ordersActions';
+import { Card, Icon, Button, Image, Header } from 'semantic-ui-react';
+import { toast } from 'react-semantic-toasts';
+import { AddToCartAction, ShowInsufficientStockQuantityWarningAction } from '../redux/actions/ordersActions';
 
-@connect(null, { AddProductToCartAction })
+@connect(
+	state => ({ cart: state.orders.cart })
+	, { AddToCartAction, ShowInsufficientStockQuantityWarningAction }
+)
 export default class ProductCard extends Component {
 	static propTypes = {
 		_id: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
+		price: PropTypes.number.isRequired,
 		image: PropTypes.object.isRequired,
+		cart: PropTypes.object.isRequired,
 		isAuthenticated: PropTypes.bool.isRequired,
 		isAdmin: PropTypes.bool.isRequired,
 		passProductIdToDelete: PropTypes.func.isRequired,
-		AddProductToCartAction: PropTypes.func.isRequired, 
+		AddToCartAction: PropTypes.func.isRequired, 
+		ShowInsufficientStockQuantityWarningAction: PropTypes.func.isRequired,
 	};
 
 	static defaultProps = {
@@ -21,12 +28,37 @@ export default class ProductCard extends Component {
 	};
 
 	addToCart = () => {
-		const { product, AddProductToCartAction } = this.props;
-		AddProductToCartAction(product);
+		const { product, cart, AddToCartAction, ShowInsufficientStockQuantityWarningAction } = this.props;
+		const { _id, inStockQuantity } = product;
+
+		//Check if we didn't exceed in-stock quantity
+		if(!cart[_id] || cart[_id].quantity < inStockQuantity) {
+			AddToCartAction(product);
+
+			toast({
+				type: 'success',
+				description: 'Product added to cart!',
+				animation: 'bounce',
+				time: 3000,
+			});
+
+		} else {
+			//Show warning message
+			// ShowInsufficientStockQuantityWarningAction();
+
+			toast({
+				type: 'warning',
+				icon: 'exclamation triangle',
+				title: 'Warning',
+				description: 'Quantity exceeded in-stock quantity.',
+				animation: 'bounce',
+				time: 3000,
+			});
+		}
 	};
 
 	render () {
-		const { _id, name, image, isAuthenticated, isAdmin, passProductIdToDelete } = this.props;
+		const { _id, name, price, image, isAuthenticated, isAdmin, passProductIdToDelete } = this.props;
 
 		let actionButtons = null;
 		
@@ -66,7 +98,8 @@ export default class ProductCard extends Component {
 			<Card raised style={{ width: 300 }}>
 				<Image src={image.data} style={{ height: 300, objectFit: 'cover' }} />
 				<Card.Content>
-					<Card.Header>{name}</Card.Header>
+					<Header floated='left' content={name} />
+					<Header floated='right' content={`$ ${price}`} />
 				</Card.Content>
 
 				{/* Action Buttons */}

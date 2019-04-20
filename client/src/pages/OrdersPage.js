@@ -1,23 +1,38 @@
 import React, { Component } from 'react'
-import { Grid, Segment, Loader } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import OrdersContainer from '../containers/OrdersContainer';
+import { Grid, Segment, Loader } from 'semantic-ui-react';
+import { FetchUsersOrdersRequestAction } from '../redux/actions/ordersActions';
 
+@connect(
+  state => ({ isFetching: state.orders.isFetchingUsersOrders }),
+  { FetchUsersOrdersRequestAction }
+)
 export default class OrdersPage extends Component {
+  static propTypes = {
+    isFetching: PropTypes.bool.isRequired,
+    FetchUsersOrdersRequestAction: PropTypes.func.isRequired,
+  }
+
+  componentDidMount() {
+    this.props.FetchUsersOrdersRequestAction();
+  }
+  
+
   render() {
-    const isFetchingProducts = false;
+    const { isFetching } = this.props;
 
     return (
       <Grid>
         <Grid.Column>
-        {
-          isFetchingProducts
-          ? (
-            <Segment style={{minHeight: 500}}>
-              <Loader active content='Loading' />
+            <Segment style={{minHeight: 600}}>
+              {
+                isFetching
+                ? <Loader active content='Loading' />
+                : <OrdersContainer />
+              }
             </Segment>
-          ) 
-          : <OrdersContainer />
-        }
         </Grid.Column>
       </Grid>
     )

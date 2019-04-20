@@ -1,56 +1,39 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Icon, Image, Item, Label } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import OrderItem from '../components/OrderItem';
+import { Header, Icon, Segment } from 'semantic-ui-react';
 
+@connect(state => ({ orders: state.orders.allUsersOrders }))
 export default class OrdersContainer extends Component {
-    handleCheckout = () => console.log('should handle checkout');
+	static propTypes = {
+		orders: PropTypes.arrayOf(PropTypes.object).isRequired
+	}
     
 	render () {
+		const { orders } = this.props;
+
 		return (
-            <Fragment>
-			<Item.Group divided>
-				<Item>
-                    <Item.Image size='small' bordered src="/assets/images/default-image.png" />
-
-					<Item.Content>
-						<Item.Header as="a">My Neighbor Totoro</Item.Header>
-						<Item.Meta>
-							<span className="cinema">IFC Cinema</span>
-						</Item.Meta>
-						<Item.Extra>
-							<Button primary floated="right">
-								Buy tickets
-								<Icon name="right chevron" />
-							</Button>
-							<Label>Limited</Label>
-						</Item.Extra>
-					</Item.Content>
-				</Item>
-
-				<Item>
-                    <Item.Image size='small' bordered src="/assets/images/default-image.png" />
-
-					<Item.Content>
-						<Item.Header as="a">Watchmen</Item.Header>
-						<Item.Meta>
-							<span className="cinema">IFC</span>
-						</Item.Meta>
-						<Item.Extra>
-							<Button primary floated="right">
-								Buy tickets
-								<Icon name="right chevron" />
-							</Button>
-						</Item.Extra>
-					</Item.Content>
-				</Item>
-            </Item.Group>
-
-                <Button 
-                    fluid
-                    color='teal'
-                    content='Checkout'
-                    onClick={this.handleCheckout}
-                />
-            </Fragment>
+			orders.length
+			? (
+				orders.map(({ _id, user, date, orderDetails, totalPrice }) => (
+					<OrderItem
+						key={_id}
+						username={user.username}
+						orderDetails={orderDetails}
+						totalPrice={totalPrice}
+						date={date}
+					/>
+				))
+			)
+			: (
+				<Segment placeholder>
+					<Header icon>
+						<Icon name='cart' />
+						No orders were placed yet.
+					</Header>
+				</Segment>
+			)
 		);
 	}
 }

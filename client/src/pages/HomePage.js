@@ -36,7 +36,7 @@ export default class HomePage extends Component {
         {
           isFetchingProducts
           ? (
-            <Segment style={{minHeight: 500}}>
+            <Segment style={{minHeight: 600}}>
               <Loader active content='Loading' />
             </Segment>
           ) 

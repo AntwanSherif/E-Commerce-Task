@@ -13,6 +13,7 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "react-semantic-toasts": "^0.5.1",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
     "redux-starter-kit": "^0.4.3",
