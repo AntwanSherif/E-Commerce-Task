@@ -2,21 +2,21 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal } from 'semantic-ui-react';
-import { HideAddProductModalAction } from '../redux/actions/productsActions';
-import AddProductFormContainer from './AddProductFormContainer';
+import { HideEditProductModalAction } from '../redux/actions/productsActions';
+import EditProductFormContainer from './EditProductFormContainer';
 
 
 @connect(
-  state => ({ isOpen: state.products.isAddProductModalVisible }),
-  { HideAddProductModalAction }
+    state => ({ isOpen: state.products.isEditProductModalVisible }),
+    { HideEditProductModalAction }
 )
-export default class AddProductModal extends Component {
+export default class EditProductModal extends Component {
   static propTypes = {
     isOpen: PropTypes.bool.isRequired,
-    HideAddProductModalAction: PropTypes.func.isRequired
+    HideEditProductModalAction: PropTypes.func.isRequired,
   }
 
-  hideModal = () => this.props.HideAddProductModalAction();
+  hideModal = () => this.props.HideEditProductModalAction();
 
   render() {
     const { isOpen } = this.props;
@@ -29,7 +29,7 @@ export default class AddProductModal extends Component {
         closeIcon={true}
         closeOnDimmerClick={false}
       >
-        <AddProductFormContainer />
+        <EditProductFormContainer />
       </Modal>
     )
   }

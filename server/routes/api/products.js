@@ -83,20 +83,17 @@ router.put(
     '/', 
     passport.authenticate('jwt', { session: false }), 
     (req, res) => {
-        Product.findOne({ id: req.product._id })
-            .then(product => {
-                if(product) {
-                    Product.findOneAndUpdate(
-                        { id: req.product._id }, 
-                        { $set: req.product },
-                        { new: true }
-                    )
-                    .then(product => res.json(product))
-                }
-            })
-
-    }
-);
+        Product.findByIdAndUpdate(
+            req.body.product._id,
+            req.body.product,
+            { new: true },
+            (err, product) => {
+                if (err) return res.status(404).json({ msg: 'product not found.'})
+                return res.json(product)
+            }
+        )
+    }  
+);     
 
 // @route   DELETE api/products/:id
 // @desc    Delete product

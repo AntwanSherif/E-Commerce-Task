@@ -3,6 +3,7 @@ import { Grid, Responsive, Container } from 'semantic-ui-react';
 import DocumentTitle  from 'react-document-title';
 import Header from './containers/Header/HeaderContainer';
 import AddProductModal from './containers/AddProductModal';
+import EditProductModal from './containers/EditProductModal';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import './App.css';
@@ -40,6 +41,9 @@ export default class App extends Component {
 
           {/* Add Product Modal */}
           <AddProductModal />
+
+          {/* Edit Product Modal */}
+          <EditProductModal />
 
           {/* Quantity exceeds in-stock quantity warning */}
           <SemanticToastContainer position='bottom-right' />

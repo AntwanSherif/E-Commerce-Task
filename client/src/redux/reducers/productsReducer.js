@@ -37,6 +37,31 @@ const productsReducer = (state = {}, action) => {
                 errors: { addProductError: action.error }
             }
 
+        //Edit product
+        case ProductsActions.SGRD_EDIT_PRODUCT_REQUEST:
+            return { ...state, isEditingProduct: true, productToEdit: action.product }
+
+        case ProductsActions.RD_EDIT_PRODUCT_SUCCESS:
+            const ProductIndex = state.products.findIndex(product => product._id === action.product._id);
+
+            return { 
+                ...state, 
+                products: [
+                    ...state.products.slice(0, ProductIndex),
+                    action.product,
+                    ...state.products.slice(ProductIndex + 1),
+                ],
+                isEditingProduct: false,
+                productToEdit: null
+            }
+
+        case ProductsActions.RD_EDIT_PRODUCT_FAILURE:
+            return { 
+                ...state, 
+                isEditingProduct: false, 
+                errors: { editProductError: action.error }
+            }
+
         //Delete product
         case ProductsActions.SGRD_DELETE_PRODUCT_REQUEST:
             return { ...state, isDeletingProduct: true }
@@ -57,14 +82,21 @@ const productsReducer = (state = {}, action) => {
                 errors: { deleteProductError: action.error }
             }
             
-        //Show Add Product Modal
+        //Show/Hide Add Product Modal
         case ProductsActions.RD_SHOW_ADD_PRODUCT_MODAL:
             return { ...state, isAddProductModalVisible: true };
     
         case ProductsActions.RD_HIDE_ADD_PRODUCT_MODAL:
             return { ...state, isAddProductModalVisible: false };
 
-        //Show Delete Product Confirmation
+        //Show/Hide Edit Product Modal
+        case ProductsActions.RD_SHOW_EDIT_PRODUCT_MODAL:
+            return { ...state, isEditProductModalVisible: true, productToEdit: action.product };
+
+        case ProductsActions.RD_HIDE_EDIT_PRODUCT_MODAL:
+            return { ...state, isEditProductModalVisible: false, productToEdit: null };
+
+        //Show/Hide Delete Product Confirmation
         case ProductsActions.RD_SHOW_DELETE_PRODUCT_CONFIRMATION:
             return { ...state, isDeleteProductConfirmationVisible: true };
     

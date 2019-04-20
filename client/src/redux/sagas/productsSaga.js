@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import * as productsActions from '../actions/productsActions';
 import * as productsAPIs from '../services/productsAPIs';
 
@@ -26,9 +26,20 @@ function* addProduct({ productDetails }) {
 	}
 }
 
+function* editProduct({ product }) {
+	try {
+		const editProductResponse = yield call(productsAPIs.EditProductAPI, product);
+		yield put(productsActions.EditProductSuccessAction(editProductResponse));
+		yield put(productsActions.HideEditProductModalAction());
+	} catch (error) {
+		console.log('error', error);
+    	yield put(productsActions.EditProductFailureAction(error));
+	}
+}
+
 function* deleteProduct({ productId }) {
 	try {
-		const deleteProductResponse = yield call(productsAPIs.DeleteProductAPI, productId);
+		yield call(productsAPIs.DeleteProductAPI, productId);
 		yield put(productsActions.DeleteProductSuccessAction(productId));
 		yield put(productsActions.HideDeleteProductConfirmationAction());
 	} catch (error) {
@@ -43,6 +54,10 @@ export function* watchGetAllProducts() {
 
 export function* watchAddProduct() {
 	yield takeLatest(productsActions.SGRD_ADD_PRODUCT_REQUEST, addProduct);
+}
+
+export function* watchEditProduct() {
+	yield takeLatest(productsActions.SGRD_EDIT_PRODUCT_REQUEST, editProduct);
 }
 
 export function* watchDeleteProduct() {

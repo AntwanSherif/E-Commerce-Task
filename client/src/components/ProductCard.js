@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { Card, Icon, Button, Image, Header } from 'semantic-ui-react';
 import { toast } from 'react-semantic-toasts';
 import { AddToCartAction, ShowInsufficientStockQuantityWarningAction } from '../redux/actions/ordersActions';
+import { ShowEditProductModalAction } from '../redux/actions/productsActions';
 
 @connect(
 	state => ({ cart: state.orders.cart })
-	, { AddToCartAction, ShowInsufficientStockQuantityWarningAction }
+	, { ShowEditProductModalAction, AddToCartAction, ShowInsufficientStockQuantityWarningAction }
 )
 export default class ProductCard extends Component {
 	static propTypes = {
@@ -21,6 +22,7 @@ export default class ProductCard extends Component {
 		passProductIdToDelete: PropTypes.func.isRequired,
 		AddToCartAction: PropTypes.func.isRequired, 
 		ShowInsufficientStockQuantityWarningAction: PropTypes.func.isRequired,
+		ShowEditProductModalAction: PropTypes.func.isRequired,
 	};
 
 	static defaultProps = {
@@ -58,7 +60,8 @@ export default class ProductCard extends Component {
 	};
 
 	render () {
-		const { _id, name, price, image, isAuthenticated, isAdmin, passProductIdToDelete } = this.props;
+		const { product, _id, name, price, image, isAuthenticated, isAdmin, 
+			passProductIdToDelete, ShowEditProductModalAction } = this.props;
 
 		let actionButtons = null;
 		
@@ -75,6 +78,7 @@ export default class ProductCard extends Component {
 						basic 
 						color='green'
 						content='Edit'
+						onClick={() => ShowEditProductModalAction(product)}
 					/>
 				</div>
 			);

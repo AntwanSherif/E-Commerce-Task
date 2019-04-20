@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { RemoveFromCartAction } from '../redux/actions/ordersActions';
-import { Item, Header, Icon, Button, Label } from 'semantic-ui-react';
+import { Item, Header } from 'semantic-ui-react';
 
 @connect(null, { RemoveFromCartAction })
 export default class CartItem extends Component {

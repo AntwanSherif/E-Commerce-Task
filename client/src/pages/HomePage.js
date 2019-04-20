@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
+import DocumentTitle from "react-document-title";
 import { connect } from 'react-redux';
 import { Grid, Segment, Loader } from 'semantic-ui-react';
 import ProductsContainer from '../containers/ProductsContainer';
@@ -31,24 +32,26 @@ export default class HomePage extends Component {
     const { isFetchingProducts } = this.props;
 
     return (
-      <Grid>
-        <Grid.Column>
-        {
-          isFetchingProducts
-          ? (
-            <Segment style={{minHeight: 600}}>
-              <Loader active content='Loading' />
-            </Segment>
-          ) 
-          : (
-            <Fragment>
-              <ProductsContainer />
-              <AddProductFloatingButton />
-            </Fragment>
-          ) 
-        }
-        </Grid.Column>
-      </Grid>
+      <DocumentTitle title="ITClinic">
+        <Grid>
+          <Grid.Column>
+          {
+            isFetchingProducts
+            ? (
+              <Segment style={{minHeight: 600}}>
+                <Loader active content='Loading' />
+              </Segment>
+            ) 
+            : (
+              <Fragment>
+                <ProductsContainer />
+                <AddProductFloatingButton />
+              </Fragment>
+            ) 
+          }
+          </Grid.Column>
+        </Grid>
+      </DocumentTitle>
     )
   }
 }

@@ -13,6 +13,7 @@ export default function* rootSaga() {
         //Products Sagas
         fork(ProductsSagas.watchGetAllProducts),
         fork(ProductsSagas.watchAddProduct),
+        fork(ProductsSagas.watchEditProduct),
         fork(ProductsSagas.watchDeleteProduct),
         
         //Orders Sagas

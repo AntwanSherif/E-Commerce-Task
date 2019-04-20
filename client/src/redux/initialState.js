@@ -12,11 +12,14 @@ export default {
         isFetchingProducts: false,
         products: [],
 
+        productToEdit: null,
+
         isAddingProduct: false,
         isEditingProduct: false,
         isDeletingProduct: false,
         
         isAddProductModalVisible: false,
+        isEditProductModalVisible: false,
         isDeleteProductConfirmationVisible: false,
 
         errors: null

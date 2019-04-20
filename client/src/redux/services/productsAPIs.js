@@ -13,6 +13,14 @@ export const AddProductAPI = (productDetails) =>
     .then(res => res.data)
     .catch(error => { throw error.response.data });
 
+
+    //Edit product
+export const EditProductAPI = (product) => 
+axios.put('/api/products', product)
+.then(res => res.data)
+.catch(error => { throw error.response.data });
+
+
 //Delete product
 export const DeleteProductAPI = (productId) => 
     axios.delete(`/api/products/${productId}`)

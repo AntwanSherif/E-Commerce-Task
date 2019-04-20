@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
+import DocumentTitle from "react-document-title";
 import { connect } from 'react-redux';
 import CartContainer from '../containers/CartContainer';
 import { Grid, Segment, Header, Button, Icon } from 'semantic-ui-react';
@@ -28,17 +29,19 @@ export default class UserCartPage extends Component {
     )
 
     return (
-      <Grid>
-        <Grid.Column>
-            <Segment placeholder={!numberOfItems} textAlign='center' style={getSegmentStyle(numberOfItems)}>
-              {
-                numberOfItems
-                ? <CartContainer />
-                : startShoppingButton
-              }
-            </Segment>
-        </Grid.Column>
-      </Grid>
+      <DocumentTitle title="Cart">
+        <Grid>
+          <Grid.Column>
+              <Segment placeholder={!numberOfItems} textAlign='center' style={getSegmentStyle(numberOfItems)}>
+                {
+                  numberOfItems
+                  ? <CartContainer />
+                  : startShoppingButton
+                }
+              </Segment>
+          </Grid.Column>
+        </Grid>
+      </DocumentTitle>
     )
   }
 }

@@ -49,7 +49,7 @@ export default class OrderItem extends Component {
               <Table.Body>
               {
                 orderDetails.map(({ product, quantity }) => (
-                  <Table.Row>
+                  <Table.Row key={product._id}>
                     <Table.Cell>
                       <Image size='tiny' src={product.image.data} />
                     </Table.Cell>
