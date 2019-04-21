@@ -23,8 +23,9 @@
     "validator": "^10.11.0"
   },
   "scripts": {
-    "start": "nodemon server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --prefix client && yarn build --prefix client"  
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "build": "NPM_CONFIG_PRODUCTION=false yarn --prefix client && yarn build --prefix client"  
   },
   "devDependencies": {
     "nodemon": "^1.18.11"
