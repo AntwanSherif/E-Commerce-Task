@@ -15,7 +15,7 @@ import { EditProductRequestAction } from '../redux/actions/productsActions';
 export default class EditProductFormContainer extends Component {
 	static propTypes = {
     product: PropTypes.object.isRequired,
-    isAddingProduct: PropTypes.bool.isRequired,
+    isEditingProduct: PropTypes.bool.isRequired,
     errors: PropTypes.object,
     EditProductRequestAction: PropTypes.func.isRequired,
   };

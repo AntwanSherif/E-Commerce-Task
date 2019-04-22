@@ -70,15 +70,15 @@ export default class ProductCard extends Component {
 				<div className='ui two buttons'>
 					<Button
 						basic 
-						color='red'
-						content='Delete'
-						onClick={() => passProductIdToDelete(_id)}
-					/>
-					<Button
-						basic 
 						color='green'
 						content='Edit'
 						onClick={() => ShowEditProductModalAction(product)}
+					/>
+					<Button
+						basic 
+						color='red'
+						content='Delete'
+						onClick={() => passProductIdToDelete(_id)}
 					/>
 				</div>
 			);
@@ -99,7 +99,7 @@ export default class ProductCard extends Component {
 		}
 
 		return (
-			<Card raised style={{ width: 300 }}>
+			<Card raised style={{ width: 300, cursor: 'pointer' }}>
 				<Image src={image.data} style={{ height: 300, objectFit: 'cover' }} />
 				<Card.Content>
 					<Header floated='left' content={name} />
@@ -107,9 +107,15 @@ export default class ProductCard extends Component {
 				</Card.Content>
 
 				{/* Action Buttons */}
-				<Card.Content extra>
-					{actionButtons}
-      			</Card.Content>
+				{
+					isAuthenticated
+					? (
+						<Card.Content extra>
+							{actionButtons}
+      					</Card.Content>
+					) : null
+				}
+				
 			</Card>
 		);
 	}

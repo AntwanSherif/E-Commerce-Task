@@ -25,7 +25,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --prefix client && yarn build --prefix client"  
+    "heroku-postbuild": "YARN_PRODUCTION=false && cd client && yarn && yarn run build"  
   },
   "devDependencies": {
     "nodemon": "^1.18.11"
