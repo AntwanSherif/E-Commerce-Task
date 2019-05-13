@@ -19,8 +19,8 @@ export default class CartItem extends Component {
       const { id, name, quantity, totalPrice, imgSrc, RemoveFromCartAction } = this.props;
 
       return (
-        <Item style={{ height: 350 }}>
-            <Item.Image size='medium' bordered src={imgSrc} style={{ height: 300, objectFit: 'cover' }} />
+        <Item>
+            <Item.Image size='medium' bordered src={imgSrc} size='small' style={{ objectFit: 'cover' }} />
 
             <Item.Content>
                 <Header as="a" size='large' content={name} />

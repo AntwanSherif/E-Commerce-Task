@@ -6,14 +6,15 @@ export const RD_ADD_TO_CART = 'RD_ADD_TO_CART';
 export const RD_REMOVE_FROM_CART = 'RD_REMOVE_FROM_CART';
 
 //Place Order
-export const SGRD_PLACE_ORDER_REQUEST = 'SGRD_PLACE_ORDER_REQUEST'
-export const RD_PLACE_ORDER_SUCCESS = 'RD_PLACE_ORDER_SUCCESS'
-export const RD_PLACE_ORDER_FAILURE = 'RD_PLACE_ORDER_FAILURE'
+export const SGRD_PLACE_ORDER_REQUEST = 'SGRD_PLACE_ORDER_REQUEST';
+export const RD_PLACE_ORDER_SUCCESS = 'RD_PLACE_ORDER_SUCCESS';
+export const RD_PLACE_ORDER_FAILURE = 'RD_PLACE_ORDER_FAILURE';
+export const RD_RESET_PLACE_ORDER_FLAGS = 'RD_RESET_PLACE_ORDER_FLAGS';
 
 //Fetch Users Orders
-export const SGRD_FETCH_USERS_ORDERS_REQUEST = 'SGRD_FETCH_USERS_ORDERS_REQUEST'
-export const RD_FETCH_USERS_ORDERS_SUCCESS = 'RD_FETCH_USERS_ORDERS_SUCCESS'
-export const RD_FETCH_USERS_ORDERS_FAILURE = 'RD_FETCH_USERS_ORDERS_FAILURE'
+export const SGRD_FETCH_USERS_ORDERS_REQUEST = 'SGRD_FETCH_USERS_ORDERS_REQUEST';
+export const RD_FETCH_USERS_ORDERS_SUCCESS = 'RD_FETCH_USERS_ORDERS_SUCCESS';
+export const RD_FETCH_USERS_ORDERS_FAILURE = 'RD_FETCH_USERS_ORDERS_FAILURE';
 
 //Show warning when the user try to add the product more than the available stock quantity
 export const RD_SHOW_INSUFFICIENT_STOCK_QUANTITY_WARNING = 'RD_SHOW_INSUFFICIENT_STOCK_QUANTITY_WARNING';
@@ -30,6 +31,7 @@ export const RemoveFromCartAction = (productId) => ({ type: RD_REMOVE_FROM_CART,
 export const PlaceOrderRequestAction = () => ({ type: SGRD_PLACE_ORDER_REQUEST });
 export const PlaceOrderSuccessAction = () => ({ type: RD_PLACE_ORDER_SUCCESS });
 export const PlaceOrderFailureAction = (error) => ({ type: RD_PLACE_ORDER_FAILURE, error });
+export const ResetPlaceOrderFlagsAction = () => ({ type: RD_RESET_PLACE_ORDER_FLAGS });
 
 //Fetch Users Orders
 export const FetchUsersOrdersRequestAction = () => ({ type: SGRD_FETCH_USERS_ORDERS_REQUEST });

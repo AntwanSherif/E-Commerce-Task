@@ -28,6 +28,7 @@ export default {
         cart: {},
         totalPrice: 0,
         isPlacingOrder: false,
+        isOrderPlacedSuccessfully: false,
 
         isFetchingUsersOrders: false,
         allUsersOrders: [],

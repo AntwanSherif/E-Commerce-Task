@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Grid, Responsive, Container } from 'semantic-ui-react';
 import DocumentTitle  from 'react-document-title';
 import Header from './containers/Header/HeaderContainer';
@@ -20,7 +20,7 @@ export default class App extends Component {
 
     return (
       <DocumentTitle title='Home Page'>
-        <Fragment>
+        <>
 
           {/** App Content */}
           <Responsive as={Grid} id='site-container' container={isMobile} style={!isMobile? {'padding': '20px 170px 0'} : null} fireOnMount columns={16} onUpdate={this.handleWindowSizeUpdates}>
@@ -48,7 +48,7 @@ export default class App extends Component {
           {/* Quantity exceeds in-stock quantity warning */}
           <SemanticToastContainer position='bottom-right' />
 
-        </Fragment>
+        </>
       </DocumentTitle>
     );
   }

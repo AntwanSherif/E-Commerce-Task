@@ -13,83 +13,106 @@ import { AddProductRequestAction } from '../redux/actions/productsActions';
   { AddProductRequestAction }
 )
 export default class AddProductFormContainer extends Component {
-	static propTypes = {
+  static propTypes = {
     isAddingProduct: PropTypes.bool.isRequired,
     errors: PropTypes.object,
     AddProductRequestAction: PropTypes.func.isRequired,
   };
 
-	state = {
-		name: '',
-		quantity: '',
-		productImage: ''
+  state = {
+    name: '',
+    quantity: '',
+    productImage: '',
+    price: ''
   };
-  
+
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    const priceRegex = /^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))(\.[\d]{1,2})?$/;
+    const quantityRegex = /^((?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*)))$/;
+
+    //input validation rules
+    if ( value === '' //in case of clearing the input
+      || name === 'name'
+      || (name === 'price' && priceRegex.test(value))
+      || (name === 'quantity' && quantityRegex.test(value))
+    ) {
+      this.setState({ [name]: value });
+    }
+
   }
 
-	getUploadedImageData = (productImage) => this.setState({ productImage });
+  getUploadedImageData = (productImage) => this.setState({ productImage });
 
-	handleAddProduct = () => {
-		const { name, quantity, productImage } = this.state;
+  handleAddProduct = () => {
+    const { name, quantity, productImage, price } = this.state;
 
-	  let formObj = new FormData();
-		formObj.append('productImage', productImage);
-		formObj.append('name', name);
-		formObj.append('quantity', quantity);
+    let formObj = new FormData();
+    formObj.append('productImage', productImage);
+    formObj.append('name', name);
+    formObj.append('quantity', quantity);
+    formObj.append('price', price);
 
     this.props.AddProductRequestAction(formObj);
-	};
+  };
 
-	render () {
+  render() {
     const { isAddingProduct, errors } = this.props;
-    const { name, quantity } = this.state;
+    const { name, quantity, price, productImage } = this.state;
+    const isFormInvalid = !(name && quantity && price && productImage);
 
-		return (
-			<Grid padded relaxed>
-				<Grid.Row centered>
-					<Header size="large" color="teal" content="Add Product" style={{ marginTop: '1em' }} />
-				</Grid.Row>
-				<Grid.Row>
-					<Grid.Column stretched>
-						<Form size="large">
-              <Form.Input 
-                fluid 
-                icon="tag" 
-                iconPosition="left" 
-                placeholder="Product Name" 
+    return (
+      <Grid padded relaxed>
+        <Grid.Row centered>
+          <Header size="large" color="teal" content="Add Product" style={{ marginTop: '1em' }} />
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column stretched>
+            <Form size="large">
+              <Form.Input
+                fluid
+                icon="tag"
+                iconPosition="left"
+                placeholder="Product Name"
                 name='name'
                 value={name}
                 onChange={this.handleChange}
               />
-              <Form.Input 
-                fluid 
-                icon="cubes" 
-                iconPosition="left" 
-                placeholder="Quantity" 
+              <Form.Input
+                fluid
+                icon="cubes"
+                iconPosition="left"
+                placeholder="Quantity"
                 name='quantity'
                 value={quantity}
                 onChange={this.handleChange}
               />
+              <Form.Input
+                fluid
+                icon="dollar"
+                iconPosition="left"
+                placeholder="Price"
+                name='price'
+                value={price}
+                onChange={this.handleChange}
+              />
 
-							<ImageUpload passUploadedImageData={this.getUploadedImageData} />
+              <ImageUpload passUploadedImageData={this.getUploadedImageData} />
 
-              <Button 
-                color="teal" 
-                fluid 
-                size="large" 
-                style={{ marginTop: 30 }} 
-                content="Add Product" 
+              <Button
+                color="teal"
+                fluid
+                size="large"
+                style={{ marginTop: 30 }}
+                content="Add Product"
                 loading={isAddingProduct}
-                disabled={isAddingProduct}
+                disabled={isFormInvalid || isAddingProduct}
                 onClick={this.handleAddProduct}
               />
-						</Form>
-					</Grid.Column>
-				</Grid.Row>
-			</Grid>
-		);
-	}
+            </Form>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    );
+  }
 }

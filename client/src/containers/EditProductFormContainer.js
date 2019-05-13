@@ -22,31 +22,44 @@ export default class EditProductFormContainer extends Component {
 
 	state = {
 		name: this.props.product.name,
-		quantity: this.props.product.inStockQuantity,
+    quantity: this.props.product.inStockQuantity,
+    price: this.props.product.price,
 		productImage: this.props.product.image.data
   };
   
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
+    const priceRegex = /^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))(\.[\d]{1,2})?$/;
+    const quantityRegex = /^((?:[1-9](?:\d{0,2}(?:,\d{3})+|\d*)))$/;
+
+    //input validation rules
+    if ( value === '' //in case of clearing the input
+      || name === 'name'
+      || (name === 'price' && priceRegex.test(value))
+      || (name === 'quantity' && quantityRegex.test(value))
+    ) {
+      this.setState({ [name]: value });
+    }  }
 
 	handleEditProduct = () => {
     const { product } = this.props;
-		const { name, quantity } = this.state;
+		const { name, quantity, price } = this.state;
 
 	  const editedProduct = {
       _id: product._id,
       name,
-      quantity
+      inStockQuantity: quantity,
+      price
     }
 
-    this.props.EditProductRequestAction({ product: editedProduct});
+    this.props.EditProductRequestAction({ product: editedProduct });
 	};
 
 	render () {
     const { isEditingProduct, errors } = this.props;
-    const { name, quantity, productImage } = this.state;
+    const { name, quantity, price, productImage } = this.state;
+    const isFormInvalid = !(name && quantity && price && productImage);
+
 
 		return (
 			<Grid padded relaxed>
@@ -74,6 +87,15 @@ export default class EditProductFormContainer extends Component {
                 value={quantity}
                 onChange={this.handleChange}
               />
+              <Form.Input 
+                fluid 
+                icon="dollar" 
+                iconPosition="left" 
+                placeholder="Price" 
+                name='price'
+                value={price}
+                onChange={this.handleChange}
+              />
 
               <Image
                 src={productImage || 'assets/images/default-image.png'}
@@ -89,7 +111,7 @@ export default class EditProductFormContainer extends Component {
                 style={{ marginTop: 30 }} 
                 content="Edit Product" 
                 loading={isEditingProduct}
-                disabled={isEditingProduct}
+                disabled={isFormInvalid || isEditingProduct}
                 onClick={this.handleEditProduct}
               />
 						</Form>

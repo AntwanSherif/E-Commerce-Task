@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import DocumentTitle from "react-document-title";
 import { connect } from 'react-redux';
@@ -43,10 +43,10 @@ export default class HomePage extends Component {
               </Segment>
             ) 
             : (
-              <Fragment>
+              <>
                 <ProductsContainer />
                 <AddProductFloatingButton />
-              </Fragment>
+              </>
             ) 
           }
           </Grid.Column>

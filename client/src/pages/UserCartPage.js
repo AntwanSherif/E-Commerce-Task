@@ -1,22 +1,36 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import DocumentTitle from "react-document-title";
 import { connect } from 'react-redux';
 import CartContainer from '../containers/CartContainer';
 import { Grid, Segment, Header, Button, Icon } from 'semantic-ui-react';
+import { ResetPlaceOrderFlagsAction } from '../redux/actions/ordersActions';
 
-@connect(state => ({ numberOfItems: Object.keys(state.orders.cart).length }))
+@connect(
+  state => ({ 
+    numberOfItems: Object.keys(state.orders.cart).length,
+    isOrderPlacedSuccessfully: state.orders.isOrderPlacedSuccessfully
+  }),
+  { ResetPlaceOrderFlagsAction }
+)
 export default class UserCartPage extends Component {
   static propTypes = {
     numberOfItems: PropTypes.number.isRequired,
+    isOrderPlacedSuccessfully: PropTypes.bool.isRequired,
+    ResetPlaceOrderFlagsAction: PropTypes.func.isRequired
   }
 
-  render() {
-    const { numberOfItems } = this.props;
-    const startShoppingButton = (
-      <Fragment>
+  componentWillUnmount() {
+    this.props.ResetPlaceOrderFlagsAction();
+  }
+  
 
-        <Header icon>
+  render() {
+    const { numberOfItems, isOrderPlacedSuccessfully } = this.props;
+    
+    const startShoppingButton = (
+      <>
+        <Header icon style={{ marginBottom: 40 }}>
           <Icon name='cart' />
           No products added to cart yet!
         </Header>
@@ -25,8 +39,22 @@ export default class UserCartPage extends Component {
           content='Start Shopping'
           onClick={() => this.props.history.push('/')}
         />
-      </Fragment>
-    )
+      </>
+    );
+
+    const orderPlacedSuccessfully = (
+      <>
+        <Header icon style={{ marginBottom: 40 }}>
+          <Icon name='shipping fast' />
+          Hooray! Your order is placed successfully :)
+        </Header>
+        <Button 
+          color='teal'
+          content='Back to Products'
+          onClick={() => this.props.history.push('/')}
+        />
+      </>
+    );
 
     return (
       <DocumentTitle title="Cart">
@@ -36,6 +64,8 @@ export default class UserCartPage extends Component {
                 {
                   numberOfItems
                   ? <CartContainer />
+                  : isOrderPlacedSuccessfully 
+                  ? orderPlacedSuccessfully 
                   : startShoppingButton
                 }
               </Segment>

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CartItem from '../components/CartItem';
@@ -25,7 +25,7 @@ export default class CartContainer extends Component {
 		const { cart, totalPrice, isPlacingOrder, PlaceOrderRequestAction } = this.props;
 
 		return (
-            <Fragment>
+            <>
 				<Item.Group divided>
 					{
 						Object.values(cart).map(({ _id, name, quantity, totalPrice, image }) => (
@@ -52,7 +52,7 @@ export default class CartContainer extends Component {
 					disabled={isPlacingOrder}
                     onClick={() => PlaceOrderRequestAction()}
                 />
-            </Fragment>
+            </>
 		);
 	}
 }

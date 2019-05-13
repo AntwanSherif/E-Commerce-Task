@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Card, Modal, Button } from 'semantic-ui-react';
@@ -40,7 +40,7 @@ export default class ProductsContainer extends Component {
         const { products, isAuthenticated, isAdmin, isDeleteProductConfirmationVisible } = this.props;
 
         return (
-            <Fragment>
+            <>
                 <Card.Group centered itemsPerRow={3}>
                     {
                         products.map((product) => (
@@ -75,7 +75,7 @@ export default class ProductsContainer extends Component {
                         />
                     </Modal.Actions>
                 </Modal>
-            </Fragment>
+            </>
         )
     }
 }

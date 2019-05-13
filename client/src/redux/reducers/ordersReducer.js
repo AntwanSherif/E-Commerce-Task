@@ -53,10 +53,13 @@ const ordersReducer = (state = {}, action) => {
             return { ...state, isPlacingOrder: true }
 
         case OrdersActions.RD_PLACE_ORDER_SUCCESS:
-            return { ...state, isPlacingOrder: false, cart: {} } 
+            return { ...state, isPlacingOrder: false, cart: {}, isOrderPlacedSuccessfully: true } 
 
         case OrdersActions.RD_PLACE_ORDER_FAILURE:
             return { ...state, isPlacingOrder: false, errors: { placeOrderError: action.error } }
+
+        case OrdersActions.RD_RESET_PLACE_ORDER_FLAGS:
+            return { ...state, isOrderPlacedSuccessfully: false }
         
 
         //Fetch Users Orders

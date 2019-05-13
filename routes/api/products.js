@@ -60,7 +60,8 @@ router.post(
         const newProduct = new Product({
             user: req.user.id,
             name: req.body.name,
-            quantity: req.body.quantity,
+            inStockQuantity: req.body.quantity,
+            price: req.body.price,
             image: {
                 data: req.file.path,
                 // data: fs.readFileSync(req.files.userPhoto.path),
