@@ -116,7 +116,15 @@ router.delete(
 
             //Delete product
             product.remove()
-            .then(() => res.json({ msg: 'product deleted successfully.'}))
+            .then(() => {
+                //remove from file system
+                fs.unlink(product.image.data, err => {
+                    if (err) throw err;
+                    console.log('image deleted successfully.')
+                })
+
+                res.json({ msg: 'product deleted successfully.'})
+            })
             .catch(error => res.status(404).json({ msg: 'product not found.'}))
         })
     }
